@@ -1,0 +1,46 @@
+version: '3'
+services:
+  db:
+    image: postgres
+    container_name: postgres
+    restart: always
+    volumes:
+      - postgres_database:/var/lib/postgresql/data:Z
+    environment:
+      POSTGRES_PASSWORD: ${PGPASSWORD}
+      POSTGRES_USER: ${PGUSER}
+      POSTGRES_DB: ${PGDATABASE}
+    ports:
+      - 5432:5432
+    networks:
+      - backend
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    container_name: api-code7
+    ports:
+      - '3333:3333'
+    volumes:
+      - .:/home/node/app/
+    networks:
+      - backend
+    command: yarn dev:server
+    environment:
+      - NODE_ENV=development
+      - DB_HOST=db
+      - DB_USER=${PGUSER}
+      - DB_PASSWORD=${PGPASSWORD}
+      - DB_DATABASE=${PGDATABASE}
+    depends_on:
+      - db
+
+volumes:
+  postgres_database:
+    external: true
+
+networks:
+  backend:
+    driver: bridge
