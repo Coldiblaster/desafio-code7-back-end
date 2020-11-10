@@ -1,5 +1,8 @@
+import { getCustomRepository } from 'typeorm';
+
 import DebtsRepository from '../repositories/DebtsRepository';
 import Debt from '../models/Debt';
+import AppError from '../utils/errors/AppError';
 
 interface User {
   idUser: number;
@@ -9,24 +12,27 @@ interface User {
 }
 
 class UpdateDebtService {
-  private debtsRepository: DebtsRepository;
-
-  constructor(debtsRepository: DebtsRepository) {
-    this.debtsRepository = debtsRepository;
-  }
-
-  public execute(
+  public async execute(
     id: string,
-    { idUser, debtReason, debtDate, value }: User,
-  ): Debt {
-    const debt = this.debtsRepository.update(id, {
-      idUser,
-      debtReason,
-      debtDate,
+    { idUser, debtDate, debtReason, value }: User,
+  ): Promise<Debt | undefined> {
+    const debtsRepository = getCustomRepository(DebtsRepository);
+
+    const debt = await debtsRepository.findById(id);
+
+    if (!debt) {
+      throw new AppError('No debt found!.');
+    }
+
+    const updateData = await debtsRepository.updateDebt({
+      id: debt.id,
+      id_user: idUser,
+      debt_date: debtDate,
+      debt_reason: debtReason,
       value,
     });
 
-    return debt;
+    return updateData;
   }
 }
 

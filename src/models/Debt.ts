@@ -1,23 +1,33 @@
-import { v4 as uuidv4 } from 'uuid';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
+@Entity('debts')
 class Debt {
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  idUser: number;
+  @Column()
+  id_user: number;
 
-  debtReason: string;
+  @Column()
+  debt_reason: string;
 
-  debtDate: Date;
+  @Column()
+  debt_date: Date;
 
+  @Column()
   value: number;
 
-  constructor({ idUser, debtReason, debtDate, value }: Omit<Debt, 'id'>) {
-    this.id = uuidv4();
-    this.idUser = idUser;
-    this.debtReason = debtReason;
-    this.debtDate = debtDate;
-    this.value = value;
-  }
+  @CreateDateColumn()
+  created_at: Date;
+
+  @UpdateDateColumn()
+  updated_at: Date;
 }
 
 export default Debt;

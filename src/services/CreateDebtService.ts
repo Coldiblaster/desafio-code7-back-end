@@ -1,5 +1,6 @@
+import { getCustomRepository } from 'typeorm';
+
 import DebtsRepository from '../repositories/DebtsRepository';
-import Debt from '../models/Debt';
 
 interface User {
   idUser: number;
@@ -9,17 +10,18 @@ interface User {
 }
 
 class CreateDebtService {
-  private debtsRepository: DebtsRepository;
+  public async execute({
+    idUser,
+    debtReason,
+    debtDate,
+    value,
+  }: User): Promise<User> {
+    const debtsRepository = getCustomRepository(DebtsRepository);
 
-  constructor(debtsRepository: DebtsRepository) {
-    this.debtsRepository = debtsRepository;
-  }
-
-  public execute({ idUser, debtReason, debtDate, value }: User): Debt {
-    const debt = this.debtsRepository.create({
-      idUser,
-      debtReason,
-      debtDate,
+    const debt = await debtsRepository.createData({
+      id_user: idUser,
+      debt_reason: debtReason,
+      debt_date: debtDate,
       value,
     });
 

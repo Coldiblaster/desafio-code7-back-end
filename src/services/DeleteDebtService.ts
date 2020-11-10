@@ -1,17 +1,19 @@
+import { getCustomRepository } from 'typeorm';
+
 import DebtsRepository from '../repositories/DebtsRepository';
-import Debt from '../models/Debt';
+import AppError from '../utils/errors/AppError';
 
 class DeleteDebtService {
-  private debtsRepository: DebtsRepository;
+  public async execute(id: string): Promise<void> {
+    const debtsRepository = getCustomRepository(DebtsRepository);
 
-  constructor(debtsRepository: DebtsRepository) {
-    this.debtsRepository = debtsRepository;
-  }
+    const debt = await debtsRepository.findById(id);
 
-  public execute(id: string): Debt[] {
-    const debt = this.debtsRepository.delete(id);
+    if (!debt) {
+      throw new AppError('No debt found!.');
+    }
 
-    return debt;
+    await debtsRepository.deleteDebt(debt.id);
   }
 }
 

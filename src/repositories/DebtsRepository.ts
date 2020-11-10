@@ -1,96 +1,121 @@
+import { EntityRepository, Repository } from 'typeorm';
+
 import Debt from '../models/Debt';
 
 import AppError from '../utils/errors/AppError';
 
 interface CreateDebtDTO {
+  id?: string;
+  id_user: number;
+  debt_reason: string;
+  debt_date: Date;
+  value: number;
+}
+
+interface DebtFormat {
+  id?: string;
   idUser: number;
   debtReason: string;
   debtDate: Date;
   value: number;
 }
 
-class DebtsRepository {
-  private debts: Debt[];
+@EntityRepository(Debt)
+class DebtsRepository extends Repository<Debt> {
+  private async convertDataArray(
+    debtsData: CreateDebtDTO[],
+  ): Promise<DebtFormat[]> {
+    const debts = debtsData.map(debt => {
+      const { debt_date, debt_reason, id_user, value, id } = debt;
 
-  constructor() {
-    this.debts = [];
+      const format = {
+        idUser: id_user,
+        debtReason: debt_reason,
+        debtDate: debt_date,
+        value,
+        id,
+      };
+
+      return format;
+    });
+
+    return debts;
   }
 
-  public all(): Debt[] {
-    return this.debts;
-  }
+  private async convertData(debtData: CreateDebtDTO): Promise<DebtFormat> {
+    const { debt_date, debt_reason, id_user, value, id } = debtData;
 
-  public getUserDebts(id: number): CreateDebtDTO[] {
-    const debtsFound = this.debts;
-
-    const debtExists = debtsFound.filter(item => item.idUser === id && item);
-
-    if (!debtExists.length) {
-      throw new AppError('There are no debts for this user.');
-    }
-
-    return debtExists;
-  }
-
-  public getDebt(id: string): CreateDebtDTO {
-    const debtsFind = this.debts;
-
-    const debt = debtsFind.find(item => item.id === id);
-
-    if (!debt) {
-      throw new AppError('Not are no debts.');
-    }
-
-    return debt;
-  }
-
-  public create({ idUser, debtReason, debtDate, value }: CreateDebtDTO): Debt {
-    const debt = new Debt({ idUser, debtReason, debtDate, value });
-
-    this.debts.push(debt);
-
-    return debt;
-  }
-
-  public update(
-    id: string,
-    { idUser, debtDate, debtReason, value }: CreateDebtDTO,
-  ): Debt {
-    const debtsFound = this.debts;
-
-    const debtIndex = debtsFound.findIndex(item => item.id === id);
-
-    if (debtIndex) {
-      throw new AppError('Debt not found.');
-    }
-
-    const updateDebt = {
+    const debt = {
       id,
-      idUser,
-      debtDate,
-      debtReason,
+      idUser: id_user,
+      debtReason: debt_reason,
+      debtDate: debt_date,
       value,
     };
 
-    debtsFound[debtIndex] = updateDebt;
-
-    return updateDebt;
+    return debt;
   }
 
-  public delete(id: string): Debt[] {
-    const debtsFound = this.debts;
+  public async createData(debtData: CreateDebtDTO): Promise<DebtFormat> {
+    const debt = this.create(debtData);
 
-    const debtsExists = debtsFound.find(item => item.id === id);
+    await this.save(debt);
 
-    if (!debtsExists) {
-      throw new AppError('Debt not found.');
+    const debtFormat = this.convertData(debt);
+
+    return debtFormat;
+  }
+
+  public async all(): Promise<DebtFormat[]> {
+    const debts = await this.find();
+
+    return this.convertDataArray(debts);
+  }
+
+  public async getUserDebts(id: number): Promise<DebtFormat[]> {
+    const debtsFound = await this.find({
+      where: { id_user: id },
+    });
+
+    if (!debtsFound.length) {
+      throw new AppError('There are no debts for this user.');
     }
 
-    const debts = debtsFound.filter(item => item.id !== id && item);
+    return this.convertDataArray(debtsFound);
+  }
 
-    this.debts = debts;
+  public async getDebt(id: string): Promise<DebtFormat> {
+    const debtFound = await this.findOne({
+      where: { id },
+    });
 
-    return debts;
+    if (!debtFound) {
+      throw new AppError('Not are no debts.');
+    }
+
+    debtFound.id = id;
+
+    const debtFormat = this.convertData(debtFound);
+
+    return debtFormat;
+  }
+
+  public async updateDebt(debt: CreateDebtDTO): Promise<DebtFormat> {
+    const debtUpdate = await this.save(debt);
+
+    const debtFormat = this.convertData(debtUpdate);
+
+    return debtFormat;
+  }
+
+  public async findById(id: string): Promise<Debt | undefined> {
+    const user = await this.findOne(id);
+
+    return user;
+  }
+
+  public async deleteDebt(id: string): Promise<void> {
+    await this.delete(id);
   }
 }
 

@@ -36,6 +36,8 @@ services:
       - DB_DATABASE=${PGDATABASE}
     depends_on:
       - db
+    links:
+      - db
 
 volumes:
   postgres_database:

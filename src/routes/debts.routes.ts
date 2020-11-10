@@ -1,19 +1,20 @@
 import { Router } from 'express';
 
+import { getCustomRepository } from 'typeorm';
+
 import DebtsRepository from '../repositories/DebtsRepository';
 import CreateDebtService from '../services/CreateDebtService';
 import UpdateDebtService from '../services/UpdateDebtService';
 import DeleteDebtService from '../services/DeleteDebtService';
 
 const debtsRouter = Router();
-const debtsRepository = new DebtsRepository();
 
-debtsRouter.post('/', (request, response) => {
+debtsRouter.post('/', async (request, response) => {
   const { idUser, debtReason, debtDate, value } = request.body;
 
-  const createDebt = new CreateDebtService(debtsRepository);
+  const createDebt = new CreateDebtService();
 
-  const debt = createDebt.execute({
+  const debt = await createDebt.execute({
     idUser,
     debtReason,
     debtDate,
@@ -23,45 +24,51 @@ debtsRouter.post('/', (request, response) => {
   return response.json(debt);
 });
 
-debtsRouter.put('/:id', (request, response) => {
+debtsRouter.put('/:id', async (request, response) => {
   const { id } = request.params;
   const debtUpdate = request.body;
 
-  const updateDebt = new UpdateDebtService(debtsRepository);
+  const updateDebt = new UpdateDebtService();
 
-  const debt = updateDebt.execute(id, debtUpdate);
+  const debt = await updateDebt.execute(id, debtUpdate);
 
   return response.json(debt);
 });
 
-debtsRouter.delete('/:id', (request, response) => {
+debtsRouter.delete('/:id', async (request, response) => {
   const { id } = request.params;
 
-  const deleteDebt = new DeleteDebtService(debtsRepository);
+  const deleteDebt = new DeleteDebtService();
 
-  const debt = deleteDebt.execute(id);
+  await deleteDebt.execute(id);
 
-  return response.json(debt);
+  return response.status(204).send();
 });
 
-debtsRouter.get('/', (request, response) => {
-  const debts = debtsRepository.all();
+debtsRouter.get('/', async (request, response) => {
+  const debtsRepository = getCustomRepository(DebtsRepository);
+
+  const debts = await debtsRepository.all();
 
   return response.json(debts);
 });
 
-debtsRouter.get('/user/:id', (request, response) => {
+debtsRouter.get('/user/:id', async (request, response) => {
   const { id } = request.params;
 
-  const userDebt = debtsRepository.getUserDebts(Number(id));
+  const debtsRepository = getCustomRepository(DebtsRepository);
+
+  const userDebt = await debtsRepository.getUserDebts(Number(id));
 
   return response.json(userDebt);
 });
 
-debtsRouter.get('/details/:id', (request, response) => {
+debtsRouter.get('/details/:id', async (request, response) => {
   const { id } = request.params;
 
-  const debt = debtsRepository.getDebt(id);
+  const debtsRepository = getCustomRepository(DebtsRepository);
+
+  const debt = await debtsRepository.getDebt(id);
 
   return response.json(debt);
 });
