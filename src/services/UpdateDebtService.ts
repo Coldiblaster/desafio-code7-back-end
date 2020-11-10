@@ -18,7 +18,7 @@ class UpdateDebtService {
   public execute(
     id: string,
     { idUser, debtReason, debtDate, value }: User,
-  ): Debt[] {
+  ): Debt {
     const debt = this.debtsRepository.update(id, {
       idUser,
       debtReason,

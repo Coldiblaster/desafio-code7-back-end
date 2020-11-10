@@ -55,7 +55,7 @@ class DebtsRepository {
   public update(
     id: string,
     { idUser, debtDate, debtReason, value }: CreateDebtDTO,
-  ): Debt[] {
+  ): Debt {
     const debtsFound = this.debts;
 
     const debtIndex = debtsFound.findIndex(item => item.id === id);
@@ -74,7 +74,7 @@ class DebtsRepository {
 
     debtsFound[debtIndex] = updateDebt;
 
-    return debtsFound;
+    return updateDebt;
   }
 
   public delete(id: string): Debt[] {
