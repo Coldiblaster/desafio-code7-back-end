@@ -12,7 +12,6 @@
   <a href="#pré-requisitos-warning">:small_blue_diamond: Pré-requisitos</a>
   <a href="#como-rodar-a-aplicação-arrow_forward">:small_blue_diamond: Como rodar a aplicação</a>
   <a href="#comandos-importantes-clipboard">:small_blue_diamond: Comandos Importantes</a>
-  <a href="#deploy-rocket">:small_blue_diamond: Deploy</a>
   <a href="#linguagens-dependencias-e-libs-utilizadas-books">:small_blue_diamond: Linguagens, dependencias e libs utilizadas</a>
 </p>
 
@@ -43,6 +42,22 @@ $ docker volume create postgres_database
 $ docker-compose up
 # Rodar Migrations
 $ yarn typeorm migration:run
+```
+## Comandos Importantes :clipboard:
+:memo: TypeOrm
+
+```bash
+# Criar migrations
+$ yarn typeorm migration:run
+
+# Para mostrar todas as migrações e se elas foram executadas ou não, use o seguinte comando:
+$ yarn typeorm migration:show
+
+# ara descartar completamente um esquema de banco de dados, use:
+$ yarn typeorm schema:drop
+
+# Reverte a última migratin criada:
+$ yarn typeorm schema:revert
 ```
 
 :whale: Docker
@@ -77,7 +92,7 @@ $ https://woliveiras.com.br/posts/comandos-mais-utilizados-no-docker/
 
 - [TypeScript](https://www.typescriptlang.org/)
 - [NodeJs](https://nodejs.org/en/)
-- [TypeOrm ORM](https://typeorm.io/#/)
+- [TypeOrm](https://typeorm.io/#/)
 - [Eslint](https://eslint.org/)
 - [Prettier](https://prettier.io/)
 - [EditorConfig](https://editorconfig.org/)
