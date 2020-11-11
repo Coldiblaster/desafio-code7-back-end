@@ -79,7 +79,7 @@ $ https://woliveiras.com.br/posts/comandos-mais-utilizados-no-docker/
 - [NodeJs](https://nodejs.org/en/)
 - [TypeOrm ORM](https://typeorm.io/#/)
 - [Eslint](https://eslint.org/)
-- [Prettier[(https://prettier.io/)
+- [Prettier](https://prettier.io/)
 - [EditorConfig](https://editorconfig.org/)
 
 :copyright: 2020 - Vinicius Bastazin Araujo
