@@ -1,11 +1,10 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export default class CreateDebts1604973404498 implements MigrationInterface {
+export default class CreateUsers1599246491937 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"');
     await queryRunner.createTable(
       new Table({
-        name: 'debts',
+        name: 'users',
         columns: [
           {
             name: 'id',
@@ -15,22 +14,17 @@ export default class CreateDebts1604973404498 implements MigrationInterface {
             default: 'uuid_generate_v4()',
           },
           {
-            name: 'id_user',
-            type: 'integer',
-          },
-          {
-            name: 'debt_reason',
+            name: 'name',
             type: 'varchar',
           },
           {
-            name: 'value',
-            type: 'decimal',
-            precision: 10,
-            scale: 2,
+            name: 'email',
+            type: 'varchar',
+            isUnique: true,
           },
           {
-            name: 'debt_date',
-            type: 'timestamp',
+            name: 'password',
+            type: 'varchar',
           },
           {
             name: 'created_at',
@@ -48,6 +42,6 @@ export default class CreateDebts1604973404498 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('debts');
+    await queryRunner.dropTable('users');
   }
 }
