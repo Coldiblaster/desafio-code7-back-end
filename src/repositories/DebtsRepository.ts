@@ -100,18 +100,18 @@ class DebtsRepository extends Repository<Debt> {
     return debtFormat;
   }
 
+  public async findById(id: string): Promise<Debt | undefined> {
+    const user = await this.findOne(id);
+
+    return user;
+  }
+
   public async updateDebt(debt: CreateDebtDTO): Promise<DebtFormat> {
     const debtUpdate = await this.save(debt);
 
     const debtFormat = this.convertData(debtUpdate);
 
     return debtFormat;
-  }
-
-  public async findById(id: string): Promise<Debt | undefined> {
-    const user = await this.findOne(id);
-
-    return user;
   }
 
   public async deleteDebt(id: string): Promise<void> {

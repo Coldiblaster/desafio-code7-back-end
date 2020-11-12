@@ -1,7 +1,6 @@
 import { getCustomRepository } from 'typeorm';
 
 import DebtsRepository from '../repositories/DebtsRepository';
-import Debt from '../models/Debt';
 import AppError from '../utils/errors/AppError';
 
 interface User {
@@ -15,7 +14,7 @@ class UpdateDebtService {
   public async execute(
     id: string,
     { idUser, debtDate, debtReason, value }: User,
-  ): Promise<Debt | undefined> {
+  ): Promise<User | undefined> {
     const debtsRepository = getCustomRepository(DebtsRepository);
 
     const debt = await debtsRepository.findById(id);
