@@ -58,6 +58,7 @@ $ yarn typeorm migration:run
 
 ### Requisições para a API devem seguir os padrões:
 ### URL Padrão: http://localhost:3333/api/v1
+#### Todos métodos foram importados para um arquivo na raiz do projeto (Insomnia_2020-11-12.json)
 
 #### /debts ....
 
@@ -132,6 +133,7 @@ $ https://woliveiras.com.br/posts/comandos-mais-utilizados-no-docker/
 - [TypeScript](https://www.typescriptlang.org/)
 - [NodeJs](https://nodejs.org/en/)
 - [TypeOrm](https://typeorm.io/#/)
+- [Jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken)
 - [Eslint](https://eslint.org/)
 - [Prettier](https://prettier.io/)
 - [EditorConfig](https://editorconfig.org/)
