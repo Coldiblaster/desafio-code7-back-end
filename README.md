@@ -44,8 +44,14 @@ $ docker-compose up
 $ yarn typeorm migration:run
 ```
 
+## Iniciando containers
 <p align="center"> 
-<img src="https://recordit.co/67bKGRuhDz">
+<img src="https://recordit.co/67bKGRuhDz.gif">
+</p>
+
+## Inicializando migrations
+<p align="center"> 
+<img src="https://recordit.co/SB1ppyDwbo.gif">
 </p>
 
 ## Comandos Importantes :clipboard:
