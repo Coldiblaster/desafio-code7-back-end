@@ -82,21 +82,6 @@ $ yarn typeorm migration:run
 |---|---|---|---|---|
 | `POST` | /sessions | email, password | | Efetuar login no sistema para obter acesso a tela de dívidas. |
 
-
-```bash
-# Criar migrations
-$ yarn typeorm migration:run
-
-# Para mostrar todas as migrações e se elas foram executadas ou não, use o seguinte comando:
-$ yarn typeorm migration:show
-
-# ara descartar completamente um esquema de banco de dados, use:
-$ yarn typeorm schema:drop
-
-# Reverte a última migratin criada:
-$ yarn typeorm schema:revert
-```
-
 ## Comandos Importantes :clipboard:
 :memo: TypeOrm
 
