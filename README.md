@@ -56,14 +56,14 @@ $ yarn typeorm migration:run
 
 ## Métodos
 
-| Método | URL | Parâmetro | Descrição |
-|---|---|---|---|
-| `GET` | /debts | | Lista todas dívidas cadastradas |
-| `GET` | /debts/details | id (debts) | Obter detalhes de uma dívida |
-| `GET` | /debts/user | id_user | Lista todas as dívidas associadas a um determinado cliente |
-| `POST` | Utilizado para criar um novo registro. |
-| `PUT` | /debts | id (debts) |Atualiza dados de um registro ou altera sua situação |
-| `DELETE` | Remove um registro do sistema. |
+| Método | URL | Body | Parâmetro | Descrição |
+|---|---|---|---|---|
+| `GET` | /debts | | | Lista todas dívidas cadastradas. |
+| `GET` | /debts/details | | id (debts) | Obter detalhes de uma dívida. |
+| `GET` | /debts/user | | id_user | Lista todas as dívidas associadas a um determinado cliente. |
+| `POST` | /debts | idUser, debtReason, value, debtDate | | Utilizado para criar um novo registro. |
+| `PUT` | /debts | idUser, debtReason, value, debtDate | id (debts) | Atualiza dados de um registro ou altera sua situação. |
+| `DELETE` | /debts | | id (debts) |Remove um registro do sistema. |
 
 ```bash
 # Criar migrations
