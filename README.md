@@ -11,6 +11,7 @@
   <a href="#introdução">:small_blue_diamond: Introdução</a> 
   <a href="#pré-requisitos-warning">:small_blue_diamond: Pré-requisitos</a>
   <a href="#como-rodar-a-aplicação-arrow_forward">:small_blue_diamond: Como rodar a aplicação</a>
+  <a href="#métodos-crystal_ball">:small_blue_diamond: Métodos</a>
   <a href="#comandos-importantes-clipboard">:small_blue_diamond: Comandos Importantes</a>
   <a href="#linguagens-dependencias-e-libs-utilizadas-books">:small_blue_diamond: Linguagens, dependencias e libs utilizadas</a>
 </p>
@@ -54,10 +55,11 @@ $ yarn typeorm migration:run
 <img src="https://recordit.co/SB1ppyDwbo.gif">
 </p>
 
-## Métodos
+## Métodos :crystal_ball:
 
 ### Requisições para a API devem seguir os padrões:
 ### URL Padrão: http://localhost:3333/api/v1
+#### Todos métodos foram importados para um arquivo na raiz do projeto (Insomnia_2020-11-12.json)
 
 #### /debts ....
 
@@ -132,6 +134,7 @@ $ https://woliveiras.com.br/posts/comandos-mais-utilizados-no-docker/
 - [TypeScript](https://www.typescriptlang.org/)
 - [NodeJs](https://nodejs.org/en/)
 - [TypeOrm](https://typeorm.io/#/)
+- [Jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken)
 - [Eslint](https://eslint.org/)
 - [Prettier](https://prettier.io/)
 - [EditorConfig](https://editorconfig.org/)
