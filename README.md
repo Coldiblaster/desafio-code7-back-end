@@ -43,6 +43,11 @@ $ docker-compose up
 # Rodar Migrations
 $ yarn typeorm migration:run
 ```
+
+<p align="center"> 
+<img src="https://recordit.co/67bKGRuhDz">
+</p>
+
 ## Comandos Importantes :clipboard:
 :memo: TypeOrm
 
