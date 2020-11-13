@@ -43,6 +43,45 @@ $ docker-compose up
 # Rodar Migrations
 $ yarn typeorm migration:run
 ```
+
+## Iniciando containers
+<p align="center"> 
+<img src="https://recordit.co/67bKGRuhDz.gif">
+</p>
+
+## Inicializando migrations
+<p align="center"> 
+<img src="https://recordit.co/SB1ppyDwbo.gif">
+</p>
+
+## Métodos
+
+### Requisições para a API devem seguir os padrões:
+### URL Padrão: http://localhost:3333/api/v1
+
+#### /debts ....
+
+| Método | URL | Body | Parâmetro | Descrição |
+|---|---|---|---|---|
+| `GET` | /debts | | | Lista todas dívidas cadastradas. |
+| `GET` | /debts/details | | id (debts) | Obter detalhes de uma dívida. |
+| `GET` | /debts/user | | id_user | Lista todas as dívidas associadas a um determinado cliente. |
+| `POST` | /debts | idUser, debtReason, value, debtDate | | Utilizado para criar uma nova dívida. |
+| `PUT` | /debts | idUser, debtReason, value, debtDate | id (debts) | Atualiza dados de um registro ou altera sua situação. |
+| `DELETE` | /debts | | id (debts) | Remove um registro do sistema. |
+
+#### /users
+
+| Método | URL | Body | Parâmetro | Descrição |
+|---|---|---|---|---|
+| `POST` | /users | name, email, password | | Utilizado para criar um novo login. |
+
+#### /sessions
+
+| Método | URL | Body | Parâmetro | Descrição |
+|---|---|---|---|---|
+| `POST` | /sessions | email, password | | Efetuar login no sistema para obter acesso a tela de dívidas. |
+
 ## Comandos Importantes :clipboard:
 :memo: TypeOrm
 
